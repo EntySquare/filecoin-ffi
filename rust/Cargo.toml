@@ -65,3 +65,4 @@ multicore-sdr = ["storage-proofs-porep/multicore-sdr"]
 [patch.crates-io]
 filecoin-proofs = { path = "../../filecoin-proof-debug", version = "8.0.2", default-features = false }
 bellperson = { path = "../../entysnark", version = "0.14.0", default-features = false }
+storage-proofs-porep = { path = "../../enty-porep" }
