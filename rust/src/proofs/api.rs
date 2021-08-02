@@ -385,6 +385,11 @@ pub unsafe extern "C" fn fil_seal_commit_phase2(
         ))
         .map_err(Into::into);
 
+        println!("scp1o:{:?}",from_raw_parts(
+            seal_commit_phase1_output_ptr,
+            seal_commit_phase1_output_len,
+        ));
+        println!("===============================================");
         println!("scp1o:{:#?}",scp1o);
         println!("===============================================");
 
