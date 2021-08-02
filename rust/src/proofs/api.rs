@@ -375,7 +375,7 @@ pub unsafe extern "C" fn fil_seal_commit_phase2(
         let mut response = fil_SealCommitPhase2Response::default();
 
         println!("===============================================");
-        println!("seal_commit_phase1_output_ptr:{}",seal_commit_phase1_output_ptr);
+        println!("seal_commit_phase1_output_ptr:{:?}",seal_commit_phase1_output_ptr);
         println!("seal_commit_phase1_output_len:{}",seal_commit_phase1_output_len);
         println!("===============================================");
 
