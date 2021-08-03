@@ -374,10 +374,10 @@ pub unsafe extern "C" fn fil_seal_commit_phase2(
         info!("seal_commit_phase2: start");
         let mut response = fil_SealCommitPhase2Response::default();
 
-        println!("===============================================");
-        println!("seal_commit_phase1_output_ptr:{:?}",seal_commit_phase1_output_ptr);
-        println!("seal_commit_phase1_output_len:{}",seal_commit_phase1_output_len);
-        println!("===============================================");
+        // println!("===============================================");
+        // println!("seal_commit_phase1_output_ptr:{:?}",seal_commit_phase1_output_ptr);
+        // println!("seal_commit_phase1_output_len:{}",seal_commit_phase1_output_len);
+        // println!("===============================================");
 
         let scp1o = serde_json::from_slice(from_raw_parts(
             seal_commit_phase1_output_ptr,
@@ -389,9 +389,9 @@ pub unsafe extern "C" fn fil_seal_commit_phase2(
         //     seal_commit_phase1_output_ptr,
         //     seal_commit_phase1_output_len,
         // ));
-        println!("===============================================");
-        println!("scp1o:{:#?}",scp1o);
-        println!("===============================================");
+        // println!("===============================================");
+        // println!("scp1o:{:#?}",scp1o);
+        // println!("===============================================");
 
 
         let result =
