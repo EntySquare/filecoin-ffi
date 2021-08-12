@@ -66,3 +66,4 @@ multicore-sdr = ["storage-proofs-porep/multicore-sdr"]
 filecoin-proofs = { path = "../../filecoin-proof-debug"}
 bellperson = { path = "../../entysnark"}
 storage-proofs-porep = { path = "../../enty-porep" }
+rust-gpu-tools = { path = "../../entygputool" }
