@@ -48,6 +48,10 @@ default-features = false
 #default-features = false
 #package = "filecoin-proofs"
 
+[dependencies.storage-proofs-core]
+version = "^8.0.0"
+default-features = false
+
 [build-dependencies]
 cbindgen = "= 0.14.0"
 
@@ -66,3 +70,4 @@ multicore-sdr = ["storage-proofs-porep/multicore-sdr"]
 filecoin-proofs = { path = "../../filecoin-proof-debug"}
 bellperson = { path = "../../entysnark"}
 storage-proofs-porep = { path = "../../enty-porep" }
+storage-proofs-core = { path = "../../enty-storage-proofs-core" }
