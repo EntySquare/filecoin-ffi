@@ -374,16 +374,15 @@ pub unsafe extern "C" fn fil_seal_commit_phase2(
         info!("seal_commit_phase2: start");
 
         let mut response = fil_SealCommitPhase2Response::default();
-        info!("seal_commit_phase2: 1");
         let scp1o = serde_json::from_slice(from_raw_parts(
             seal_commit_phase1_output_ptr,
             seal_commit_phase1_output_len,
         ))
         .map_err(Into::into);
-        info!("seal_commit_phase2: 2");
+        info!("seal_commit_phase2: scp1o:{:?}",scp1o);
         let result =
             scp1o.and_then(|o| seal_commit_phase2(o, prover_id.inner, SectorId::from(sector_id)));
-        info!("seal_commit_phase2: 3");
+        info!("seal_commit_phase2: result:{:?}",result);
         match result {
             Ok(output) => {
                 response.status_code = FCPResponseStatus::FCPNoError;
