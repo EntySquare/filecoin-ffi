@@ -12,6 +12,7 @@ package generated
 */
 import "C"
 import (
+	"fmt"
 	"runtime"
 	"unsafe"
 )
@@ -710,11 +711,17 @@ func FilSealCommitPhase1(registeredProof FilRegisteredSealProof, commR Fil32Byte
 
 // FilSealCommitPhase2 function as declared in filecoin-ffi/filcrypto.h:729
 func FilSealCommitPhase2(sealCommitPhase1OutputPtr []byte, sealCommitPhase1OutputLen uint, sectorId uint64, proverId Fil32ByteArray) *FilSealCommitPhase2Response {
+	fmt.Println("======1=======")
 	csealCommitPhase1OutputPtr, csealCommitPhase1OutputPtrAllocMap := copyPUint8TBytes((*sliceHeader)(unsafe.Pointer(&sealCommitPhase1OutputPtr)))
+	fmt.Println("======2=======")
 	csealCommitPhase1OutputLen, csealCommitPhase1OutputLenAllocMap := (C.size_t)(sealCommitPhase1OutputLen), cgoAllocsUnknown
+	fmt.Println("======3=======")
 	csectorId, csectorIdAllocMap := (C.uint64_t)(sectorId), cgoAllocsUnknown
+	fmt.Println("======4=======")
 	cproverId, cproverIdAllocMap := proverId.PassValue()
+	fmt.Println("======5=======")
 	__ret := C.fil_seal_commit_phase2(csealCommitPhase1OutputPtr, csealCommitPhase1OutputLen, csectorId, cproverId)
+	fmt.Println("======6=======")
 	runtime.KeepAlive(cproverIdAllocMap)
 	runtime.KeepAlive(csectorIdAllocMap)
 	runtime.KeepAlive(csealCommitPhase1OutputLenAllocMap)
