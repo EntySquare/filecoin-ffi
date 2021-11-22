@@ -58,3 +58,4 @@ multicore-sdr = ["storage-proofs-porep/multicore-sdr"]
 [patch.crates-io]
 bellperson = { path = "../../entysnark"}
 storage-proofs-porep = { path = "../../enty-porep" }
+neptune = { path = "../../enty-neptune" }
