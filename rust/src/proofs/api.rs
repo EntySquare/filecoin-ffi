@@ -23,6 +23,7 @@ use std::slice::from_raw_parts;
 use super::helpers::{c_to_rust_post_proofs, to_private_replica_info_map};
 use super::types::*;
 use crate::util::api::init_log;
+use std::time::Instant;
 
 // A byte serialized representation of a vanilla proof.
 pub type VanillaProof = Vec<u8>;
@@ -943,7 +944,7 @@ pub unsafe extern "C" fn fil_generate_winning_post(
 ) -> *mut fil_GenerateWinningPoStResponse {
     catch_panic_response(|| {
         init_log();
-
+        let now = Instant::now();
         info!("generate_winning_post: start");
 
         let mut response = fil_GenerateWinningPoStResponse::default();
@@ -985,7 +986,7 @@ pub unsafe extern "C" fn fil_generate_winning_post(
             }
         }
 
-        info!("generate_winning_post: finish");
+        info!("generate_winning_post: finish :cost:{:?}",now.elapsed());
 
         raw_ptr(response)
     })
@@ -1131,9 +1132,8 @@ pub unsafe extern "C" fn fil_generate_window_post(
 ) -> *mut fil_GenerateWindowPoStResponse {
     catch_panic_response(|| {
         init_log();
-
+        let now = Instant::now();
         info!("generate_window_post: start");
-
         let mut response = fil_GenerateWindowPoStResponse::default();
 
         let result = to_private_replica_info_map(replicas_ptr, replicas_len).and_then(|rs| {
@@ -1182,7 +1182,7 @@ pub unsafe extern "C" fn fil_generate_window_post(
             }
         }
 
-        info!("generate_window_post: finish");
+        info!("generate_window_post: finish: cost:{:?}",now.elapsed());
 
         raw_ptr(response)
     })
