@@ -15,6 +15,7 @@ use crate::destructor;
 use crate::util::types::{
     as_path_buf, catch_panic_response, catch_panic_response_raw, FCPResponseStatus,
 };
+use std::time::Instant;
 
 #[ffi_export]
 fn alloc_boxed_slice(size: usize) -> c_slice::Box<u8> {
@@ -508,6 +509,7 @@ fn generate_winning_post(
     prover_id: &[u8; 32],
 ) -> repr_c::Box<GenerateWinningPoStResponse> {
     catch_panic_response("generate_winning_post", || {
+        let now = Instant::now();
         let replicas = to_private_replica_info_map(replicas)?;
         let result =
             filecoin_proofs_api::post::generate_winning_post(randomness, &replicas, *prover_id)?;
@@ -519,7 +521,7 @@ fn generate_winning_post(
                 proof: proof.into_boxed_slice().into(),
             })
             .collect::<Vec<_>>();
-
+        info!("generate_winning_post: finish :cost:{:?}",now.elapsed());
         Ok(result.into_boxed_slice().into())
     })
 }
@@ -614,6 +616,7 @@ fn generate_window_post(
     prover_id: &[u8; 32],
 ) -> repr_c::Box<GenerateWindowPoStResponse> {
     catch_panic_response_raw("generate_window_post", || {
+        let now = Instant::now();
         let result = to_private_replica_info_map(replicas).and_then(|replicas| {
             filecoin_proofs_api::post::generate_window_post(randomness, &replicas, *prover_id)
         });
@@ -649,7 +652,7 @@ fn generate_window_post(
                 response.error_msg = err.to_string().into_bytes().into_boxed_slice().into();
             }
         }
-
+        info!("generate_window_post: finish: cost:{:?}",now.elapsed());
         response
     })
 }
