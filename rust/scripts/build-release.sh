@@ -30,13 +30,17 @@ main() {
     #
     trap '{ rm -f $__build_output_log_tmp; }' EXIT
 
+    # add the wasm target for building actors
+    #
+    rustup target add --toolchain "$2" wasm32-unknown-unknown
+
     # build with RUSTFLAGS configured to output linker flags for native libs
     #
     local __rust_flags="--print native-static-libs ${RUSTFLAGS}"
 
     RUSTFLAGS="${__rust_flags}" \
         cargo +$2 $3 \
-        --release ${@:4} 2>&1 | tee ${__build_output_log_tmp}
+        --release --locked ${@:4} 2>&1 | tee ${__build_output_log_tmp}
 
     # parse build output for linker flags
     #
@@ -59,6 +63,10 @@ main() {
         echo "Eliminated non-universal binary libraries"
         find . -type f -name "lib$1.a"
     fi
+
+    # generate filcrypto.h
+    RUSTFLAGS="${__rust_flags}" HEADER_DIR="." \
+        cargo test --locked build_headers --features c-headers
 
     # generate pkg-config
     #

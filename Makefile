@@ -1,5 +1,7 @@
 DEPS:=filcrypto.h filcrypto.pc libfilcrypto.a
 
+export CARGO_TARGET_DIR=target
+
 all: $(DEPS)
 .PHONY: all
 
@@ -31,10 +33,6 @@ lint: shellcheck go-lint
 cgo-leakdetect: runner
 	valgrind --leak-check=full --show-leak-kinds=definite ./runner
 .PHONY: cgo-leakdetect
-
-cgo-gen: $(DEPS)
-	go run github.com/xlab/c-for-go --nostamp filcrypto.yml
-.PHONY: cgo-gen
 
 runner: $(DEPS)
 	rm -f ./runner
