@@ -16,6 +16,7 @@ use crate::util::types::{
     as_path_buf, catch_panic_response, catch_panic_response_raw, FCPResponseStatus,
 };
 use std::time::Instant;
+use log::{info,debug};
 
 #[ffi_export]
 fn alloc_boxed_slice(size: usize) -> c_slice::Box<u8> {
